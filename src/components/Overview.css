@@ -1,0 +1,12 @@
+/* Overview */
+.content{
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    margin-left: 100px;
+    margin-right: 100px;
+  }
+  
+  textarea{
+    margin-top: 20;
+    margin-left: 20;
+  }

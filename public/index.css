@@ -1,0 +1,16 @@
+/* Title bar */
+.title h2{
+    color: white;
+    margin: 0;
+    font-family: 'Playfair Display', serif;
+  }
+  
+  .title{
+    height: 70px;
+    background-color: #5a437c;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  

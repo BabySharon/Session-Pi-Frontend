@@ -1,24 +1,39 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import Examples from './components/Examples';
+import Overview from './components/Overview';
+import UserGuide from './components/UserGuide';
+import Animation from './components/Animation';
 
 function App() {
+  const [clicked, setClicked] = useState("Overview");
+  const mapping = {
+    "Examples": Examples,
+    "Overview": Overview,
+    "User Guide": UserGuide,
+    "Animation": Animation
+  }
+
+  function handleClick(e){
+    setClicked(e.target.innerText);
+  }
+
+  function renderComponent(c){
+    const Component = mapping[c];
+    return <Component/>;
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className="custom-navbar">
+        <div className="nav-button" onClick={handleClick}><p>Overview</p></div>
+        <div className="nav-button" onClick={handleClick}><p>Examples</p></div>
+        <div className="nav-button" onClick={handleClick}><p>User Guide</p></div>
+        <div className="nav-button" onClick={handleClick}><p>Animation</p></div> 
+      </div>
+
+      {renderComponent(clicked)}
+    </>
   );
 }
 
