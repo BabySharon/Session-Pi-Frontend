@@ -75,3 +75,15 @@ gap: 10px;
     height: 30px;
 }
 
+.container-wrap{
+    display: flex;
+    gap: 10px;
+    justify-content:space-evenly ;
+}
+
+.animation{
+    width: 60%;
+    border: 10px solid red;
+    
+}
+

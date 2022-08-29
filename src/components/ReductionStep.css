@@ -6,3 +6,8 @@
 .rule{
     display: flex;
 }
+
+.step{
+    border: 2px solid red;
+}
+

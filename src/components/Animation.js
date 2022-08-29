@@ -79,7 +79,7 @@ function Animation() {
     } 
  
     return (
-        <>
+        <div className='container-wrap'>
         <div className="input">
             <form onSubmit={reduce}>
                 <h3>Enter the input</h3>
@@ -100,11 +100,12 @@ function Animation() {
         <div className='animation'>
             {console.log("post", post)}
             {post.forEach((step)=>{
+                <>
                 <ReductionStep step={step}/>
-             
+                </>
             })}
         </div>
-        </>
+        </div>
 
     );
 }
