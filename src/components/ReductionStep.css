@@ -1,0 +1,8 @@
+.judgements{
+    display: flex;
+    gap:20px;
+}
+
+.rule{
+    display: flex;
+}

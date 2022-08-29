@@ -1,6 +1,5 @@
 {
   "name": "session-pi-frontend",
-  "proxy": "http://localhost:3000",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -37,4 +36,5 @@
       "last 1 safari version"
     ]
   }
+
 }

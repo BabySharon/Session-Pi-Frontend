@@ -37,11 +37,15 @@ h3{
     width: 180px;
 }
 
-.input-data{
+.inputData{
     display: flex;
     gap: 30px;
     justify-content: space-evenly;
     flex-wrap: wrap;
+    margin: 10px;
+    border: 1px solid #5a437c;
+    border-radius: 20px;
+    padding:10px;
 }
 
 .textContext{
@@ -64,5 +68,10 @@ gap: 10px;
     display: flex;
     justify-content: center;
     gap: 20px;
+}
+
+.inputData .closeButton{
+    cursor: pointer;
+    height: 30px;
 }
 
