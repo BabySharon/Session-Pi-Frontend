@@ -3,7 +3,7 @@ import axios from "axios";
 
 import './Animation.css';
 import ProcessInput from '../components/ProcessInput';
-import ReductionStep from './ReductionStep';
+import PlayAnimation from './PlayAnimation';
 
 
 function Animation() {
@@ -13,7 +13,7 @@ function Animation() {
 
     function handleProcessClick(e) {
         setNum(++num);
-        let arr =[];
+        let arr = [];
         arr.push(...content);
         arr.push(num);
         setContent(arr);
@@ -29,7 +29,7 @@ function Animation() {
         if (num > 0)
             for (let i = 0; i < content.length; i++) {
                 arr.push(<ProcessInput key={content[i]} num={content[i]} handleCloseClick={handleCloseClick} />)
-                
+
             }
         return arr;
     }
@@ -41,7 +41,7 @@ function Animation() {
         var input = event.target[0].value;
         var body = {
             // "input": input,
-            input:"new x y P[x<true>.x(b).zero] | Q[zero]",
+            input: "new x y  P[x branch {l1:x<m>, l2:x(2).x<true>}.x<b>.zero] | Q[ y select l2.(y<1>.y(z)).y(a).zero]",
             "processList": []
         }
         for (let index = 1; index <= event.target.length - 3; index += 3) {
@@ -57,54 +57,49 @@ function Animation() {
             // })
             body.processList.push({
                 "name": "P",
-                "sessionType": "!Bool.?Bool.end",
-                "typingContextMap": {"b":"Bool"}
+                "sessionType": "&{l1:!Int, l2:?Int^!Bool}.!Bool.end",
+                "typingContextMap": {
+                    "m": "Int",
+                    "b": "Bool"
+                }
             })
             body.processList.push({
                 "name": "Q",
-                "sessionType": "end",
-                "typingContextMap": {}
+                "sessionType": "+{l1:?Int, l2:!Int^?Bool}.?Bool.?Bool.end",
+                "typingContextMap": {
+                    "a": "Bool",
+                    "z": "Bool"
+                }
             })
         }
         axios.post("http://localhost:8080/type-check?red=true", body).then((response) => {
-            if(response.status == 200)
+            if (response.status === 200)
                 setPost(response.data);
             else
                 console.log("Error")
         });
+    }
 
-
-        // console.log(event2State, body)
-
-    } 
- 
     return (
         <div className='container-wrap'>
-        <div className="input">
-            <form onSubmit={reduce}>
-                <h3>Enter the input</h3>
-                <textarea className='textArea' id="textAreaExample1" rows="10" cols="5"></textarea>
-                {displayProcessInput()}
+            <div className="input">
+                <form onSubmit={reduce}>
+                    <h3>Enter the input</h3>
+                    <textarea className='textArea' id="textAreaExample1" rows="5" cols="5"></textarea>
+                    {displayProcessInput()}
 
-                <div className='imgDiv'>
-                    <img className="imgIcon" src={require("./plus-sign.png")} alt="add button" onClick={handleProcessClick}></img>
-                    <p>Add</p>
-                </div>
-                <div className='submitWrapper'>
-                    <button type="submit" className="btn btn-primary" >Type Check</button>
-                    <button type="submit" className="btn btn-primary" >Semantics</button>
-                </div>
-            </form>
+                    <div className='imgDiv'>
+                        <img className="imgIcon" src={require("./plus-sign.png")} alt="add button" onClick={handleProcessClick}></img>
+                        <p>Add</p>
+                    </div>
+                    <div className='submitWrapper'>
+                        <button type="submit" className="btn btn-primary" >Type Check</button>
+                        <button type="submit" className="btn btn-primary" >Semantics</button>
+                    </div>
+                </form>
 
-        </div>
-        <div className='animation'>
-            {console.log("post", post)}
-            {post.forEach((step)=>{
-                <>
-                <ReductionStep step={step}/>
-                </>
-            })}
-        </div>
+            </div>
+            {post.length !== 0 ? <PlayAnimation steps={post} /> : <></>}
         </div>
 
     );

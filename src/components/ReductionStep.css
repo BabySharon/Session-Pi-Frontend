@@ -5,9 +5,26 @@
 
 .rule{
     display: flex;
+    align-items: center;
 }
 
 .step{
-    border: 2px solid red;
+    margin-top: 5px;
+    width: 100%;
 }
 
+hr{
+    color: black !important;
+    background-color: white !important;
+    width: 100%;
+    margin: 5px !important;
+}
+
+.step-wrap{
+    display: flex;
+    justify-content: center;
+}
+
+.rule-name{
+    color: #0c964a;
+}

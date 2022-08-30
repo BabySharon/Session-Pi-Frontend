@@ -39,7 +39,7 @@ h3{
 
 .inputData{
     display: flex;
-    gap: 30px;
+    gap: 20px;
     justify-content: space-evenly;
     flex-wrap: wrap;
     margin: 10px;
@@ -77,13 +77,8 @@ gap: 10px;
 
 .container-wrap{
     display: flex;
-    gap: 10px;
-    justify-content:space-evenly ;
-}
-
-.animation{
-    width: 60%;
-    border: 10px solid red;
-    
+    gap: 30px;
+    justify-content:center ;
+    height: 100%;
 }
 

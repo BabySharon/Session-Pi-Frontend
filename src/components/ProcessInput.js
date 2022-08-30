@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 function ProcessInput(props){
-    // const [pos, setPos] = useState();
     function handleClose(){
         props.handleCloseClick(props.num)
     }
@@ -22,7 +21,7 @@ function ProcessInput(props){
             <h5>Typing Context</h5>
             <textarea className='textContext' id="textAreaExample1" rows="10" cols="15" placeholder='Eg - a:Int'></textarea>
         </div>
-        <img className="closeButton" src={require("./cancel.png")} onClick={handleClose}></img>
+        <img className="closeButton" src={require("./cancel.png")} alt="cancel-button" onClick={handleClose}></img>
     </div>
     );
 }

@@ -3,28 +3,41 @@ import './ReductionStep.css'
 
 function ReductionStep(props) {
 
-    // private List<String> judgements;
-    // private SemanticsRule redRule;
-    // private SemanticsRule ruleDescription;
-    // private String result;
-
-    return (
-       
-        <div className="step">
-            {console.log("here")}
-            <div className='judgements'>
-                {props.step.judgements.array.forEach(element => {
-                    <div className="judgeElement">
-                        {element} 
+    function displayJudgements(judgements) {
+        let arr = [];
+        if (judgements)
+            for (let i = 0; i < judgements.length; i++) {
+                arr.push(
+                    <div key={i} className="judgeElement">
+                        {judgements[i]}
                     </div>
+                );
 
-                })}
+            }
+        return arr;
+
+    }
+    return (
+        <div className='step-wrap'>
+            <div className="step">
+                <div className='judgements'>
+                    {displayJudgements(props.step.judgements)}
+                </div>
                 <div className='rule'>
-                    <hr></hr>
-                    {props.step.redRule}
+                    <hr />
+                    {props.step.ruleDescription != null ?
+                        <div className='rule-name'>
+                            {props.step.redRule
+                            .concat("-[")
+                                .concat(props.step.ruleDescription) + "]"}
+                        </div>
+                        :
+                        <div className='rule-name'>
+                            {props.step.redRule}
+                        </div>
+                    }
                 </div>
                 <div>{props.step.result}</div>
-                
             </div>
         </div>
     );
