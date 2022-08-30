@@ -38,6 +38,7 @@ function Animation() {
     // TODO typig conetxt map now only accepts one console.log("con", content);elem
     function reduce(event) {
         event.preventDefault();
+        var red = event.target.red.checked;
         var input = event.target[0].value;
         var body = {
             // "input": input,
@@ -93,9 +94,12 @@ function Animation() {
                         <p>Add</p>
                     </div>
                     <div className='submitWrapper'>
-                        <button type="submit" className="btn btn-primary" >Type Check</button>
-                        <button type="submit" className="btn btn-primary" >Semantics</button>
+                        <input type="radio" id="type" value="Type Check" name="select"/>
+                        <label for="type">Type Check</label>
+                        <input type="radio" id="red" value="Semantics" name="select"/>
+                        <label for="red">Semantics</label>
                     </div>
+                    <button type="submit" id="type-check" className="btn btn-primary" >Submit</button>
                 </form>
 
             </div>
