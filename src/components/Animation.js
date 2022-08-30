@@ -66,7 +66,7 @@ function Animation() {
             })
             body.processList.push({
                 "name": "Q",
-                "sessionType": "+{l1:?Int, l2:!Int^?Bool}.?Bool.?Bool.end",
+                "sessionType": "+{l1:?Int, l2:!Int^?Int}.?Bool.end",
                 "typingContextMap": {
                     "a": "Bool",
                     "z": "Bool"
