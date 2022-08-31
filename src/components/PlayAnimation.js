@@ -55,7 +55,8 @@ function PlayAnimation(props) {
     }
 
     function handleClear(){
-        setStepContent([])
+        setStepContent([]
+            )
     }
     return (
         <>

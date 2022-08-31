@@ -4,12 +4,15 @@ import axios from "axios";
 import './Animation.css';
 import ProcessInput from '../components/ProcessInput';
 import PlayAnimation from './PlayAnimation';
+import DisplayType from './DisplayType';
 
 
 function Animation() {
     var [num, setNum] = useState(1);
     const [content, setContent] = useState([1]);
     const [post, setPost] = useState([]);
+    const[type, setType] = useState([])
+    const[red, setRed] = useState();
 
     function handleProcessClick(e) {
         setNum(++num);
@@ -39,43 +42,56 @@ function Animation() {
     function reduce(event) {
         event.preventDefault();
         var red = event.target.red.checked;
+        setRed(red);
         var input = event.target[0].value;
+        console.log(event);
         var body = {
-            // "input": input,
-            input: "new x y  P[x branch {l1:x<m>, l2:x(2).x<true>}.x<b>.zero] | Q[ y select l2.(y<1>.y(z)).y(a).zero]",
-            "processList": []
+            "input": input,
+            // "input": "new x y  P[x branch {l1:x<m>, l2:x(2).x<true>}.x<b>.zero] | Q[ y select l2.(y<1>.y(z)).y(a).zero]",
+            "processList": [],
+            "red":red
         }
-        for (let index = 1; index <= event.target.length - 3; index += 3) {
+        for (let index = 1; index <= event.target.length - 4; index += 3) {
             let name = event.target[index].value;
-            let sessionType = event.target[index + 1].value;
-            let arr = event.target[index + 2].value.split(':');
+            let sessionType = event.target[index + 1].value.trim();
+            console.log(sessionType);
+            let arr =[];
+            arr = event.target[index + 2].value.split(',');
             let typingContextMap = {};
-            typingContextMap[arr[0]] = arr[1];
+            arr.forEach(element => {
+                let a = element.trim().split(":");
+                console.log("object",a);
+                typingContextMap[a[0]] = a[1];
+            });
+            body.processList.push({
+                "name": name,
+                "sessionType": sessionType,
+                "typingContextMap": typingContextMap
+            })
             // body.processList.push({
-            //     "name": name,
-            //     "sessionType": sessionType,
-            //     "typingContextMap": typingContextMap
+            //     "name": "P",
+            //     "sessionType": "&{l1:!Int, l2:?Int^!Bool}.!Bool.end",
+            //     "typingContextMap": {
+            //         "m": "Int",
+            //         "b": "Bool"
+            //     }
             // })
-            body.processList.push({
-                "name": "P",
-                "sessionType": "&{l1:!Int, l2:?Int^!Bool}.!Bool.end",
-                "typingContextMap": {
-                    "m": "Int",
-                    "b": "Bool"
-                }
-            })
-            body.processList.push({
-                "name": "Q",
-                "sessionType": "+{l1:?Int, l2:!Int^?Int}.?Bool.end",
-                "typingContextMap": {
-                    "a": "Bool",
-                    "z": "Bool"
-                }
-            })
+            // body.processList.push({
+            //     "name": "Q",
+            //     "sessionType": "+{l1:?Int, l2:!Int^?Bool}.?Bool.end",
+            //     "typingContextMap": {
+            //         "a": "Bool",
+            //         "z": "Bool"
+            //     }
+            // })
         }
-        axios.post("http://localhost:8080/type-check?red=true", body).then((response) => {
-            if (response.status === 200)
-                setPost(response.data);
+        axios.post("http://localhost:8080/type-check/", body).then((response) => {
+            if (response.status === 200){
+                console.log(response.data);
+                if(red)
+                    setPost(response.data.steps);
+                setType(response.data.ts);
+            }
             else
                 console.log("Error")
         });
@@ -103,7 +119,10 @@ function Animation() {
                 </form>
 
             </div>
-            {post.length !== 0 ? <PlayAnimation steps={post} /> : <></>}
+            
+            {red === true ?
+           ( post.length !== 0 ? <PlayAnimation steps={post} /> : <p>Type Errors - See type checking to see the error</p>)
+            :red === false? <DisplayType ts={type} />:<></>}
         </div>
 
     );
